@@ -1,5 +1,14 @@
 body {
+  background: #C33764;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom right, #1D2671, #C33764);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom right, #1D2671, #C33764); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height: 100vh;
+  color: #fff;
   margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -7,7 +16,91 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app {
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.main-timer {
+  text-align: center;
+  font-size: 3.5em;
+  margin: 0 5px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+hr {
+  margin: 10px auto;
+  width: 270px;
+  border: none; /* Убираем границу */
+  background-color: rgba(255, 255, 255, 0.3); /* Цвет линии */
+  color: rgba(255, 255, 255, 0.3); /* Цвет линии для IE6-7 */
+  height: 2px; /* Толщина линии */
+}
+.milliseconds {
+  font-size: 0.7em;
+}
+.interval-history, .interval-history-background {
+  text-align: center;
+}
+.interval-history {
+  max-height: 350px;
+  min-height: 350px;
+  font-size: 1.4em;
+  margin: 5px;
+  overflow: auto;
+}
+.interval-history-background, .interval-history-instructions {
+  opacity: .5;
+}
+.interval-history-background {
+  font-size: 5em;
+}
+.index {
+  color: #FDA371;
+}
+.main-timer-history {
+  font-size: 0.7em;
+}
+.lap-timer-history {
+  color: #5BFF62;
+}
+.buttons-block {
+  text-align: center;
+}
+button.start, 
+button.stop, 
+button.interval, 
+button.restart,
+button.discharge {
+  height: 35px;
+  border-radius: 3px;
+  border: 0px solid #000;
+  color: #fff;
+  font-size: 1.1em;
+  text-transform: uppercase;
+  margin: 5px;
+  outline: none;
+}
+button.start {
+  width: 270px;
+  background-color: #41B619;
+}
+button:hover {
+  cursor: pointer;
+}
+button.stop {
+  width: 130px;
+  background-color: #FF0000;
+}
+button.interval,
+button.discharge {
+  width: 130px;
+  background-color: #0260E8;
+}
+button.restart {
+  width: 130px;
+  background-color: #41B619;
 }
