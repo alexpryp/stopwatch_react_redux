@@ -1,5 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { formatTime } from './additionalFunctions.js';
+import { createStore, bindActionCreators } from 'redux';
+import { connect, } from 'react-redux';
+import { reducer } from './redux/reducer.js';
+import {
+	setTimerState,
+	setStartTime,
+	setStartLapTime,
+	setMainTimer,
+	setCalculatedTime,
+	setAmountOfCalculatedTime,
+	setButtonBlock,
+	setIntervalHistory
+} from './redux/actionCreators.js';
+
+export const store = createStore(reducer);
 
 function MainTimer(props) {
 	useEffect(() => {
@@ -67,7 +82,7 @@ function IntervalHistory(props) {
 		return (
 			<div className="interval-history">
 				<div className="interval-history-background">
-					<span>&#x1F551;</span>
+					<span aria-label="Clock Face Two Oclock" role="img">&#x1F551;</span>
 				</div>
 				<div className="interval-history-instructions">
 					<span>После нажатия кнопки "Интервал" появятся данные о времени, затраченном на каждый Интервал</span>	
@@ -78,7 +93,7 @@ function IntervalHistory(props) {
 		return (
 			<div className="interval-history">
 				<div className="interval-history-background">
-					<span>&#x1F551;</span>
+					<span  aria-label="Clock Face Two Oclock" role="img">&#x1F551;</span>
 				</div>
 				<div className="interval-history-instructions">
 					<span>После нажатия кнопки "Начать" секундомер начнет отсчет</span>	
@@ -161,15 +176,25 @@ function ButtonBlock(props) {
 	}
 }
 
-function App() {
-	const [timerState, setTimerState] = useState('clean');
-	const [startTime, setStartTime] = useState(new Date());
-	const [startLapTime, setStartLapTime] = useState(new Date());
-	const [mainTimer, setMainTimer] = useState(new Date(0));
-	const [calculatedTime, setCalculatedTime] = useState(0);
-	const [amountOfCalculatedTime, setAmountOfCalculatedTime] = useState(0);
-	const [buttonBlock, setButtonBlock] = useState('start');
-	const [intervalHistory, setIntervalHistory] = useState([]);
+function App(props) {
+	const { 
+	    timerState,
+		startTime,
+		startLapTime,
+		mainTimer,
+		calculatedTime,
+		amountOfCalculatedTime,
+		buttonBlock,
+		intervalHistory,
+		setTimerState,
+		setStartTime,
+		setStartLapTime,
+		setMainTimer,
+		setCalculatedTime,
+		setAmountOfCalculatedTime,
+		setButtonBlock,
+		setIntervalHistory
+	} = props;
 
 	return (
 		<div className="app">
@@ -206,4 +231,30 @@ function App() {
 	);
 }
 
-export default App;
+const putStateToProps = (state) => {
+	return {
+		timerState: state.timerState,
+		startTime: state.startTime,
+		startLapTime: state.startLapTime,
+		mainTimer: state.mainTimer,
+		calculatedTime: state.calculatedTime,
+		amountOfCalculatedTime: state.amountOfCalculatedTime,
+		buttonBlock: state.buttonBlock,
+		intervalHistory: state.intervalHistory
+	};
+};
+
+const putActionsToProps = (dispatch) => {
+	return {
+		setTimerState: bindActionCreators(setTimerState, dispatch),
+		setStartTime: bindActionCreators(setStartTime, dispatch),
+		setStartLapTime: bindActionCreators(setStartLapTime, dispatch),
+		setMainTimer: bindActionCreators(setMainTimer, dispatch),
+		setCalculatedTime: bindActionCreators(setCalculatedTime, dispatch),
+		setAmountOfCalculatedTime: bindActionCreators(setAmountOfCalculatedTime, dispatch),
+		setButtonBlock: bindActionCreators(setButtonBlock, dispatch),
+		setIntervalHistory: bindActionCreators(setIntervalHistory, dispatch)
+	}
+};
+
+export const WrappedApp = connect(putStateToProps, putActionsToProps)(App);
